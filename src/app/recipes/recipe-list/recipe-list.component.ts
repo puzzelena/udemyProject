@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Recipe } from '../recipe.model'
 //we putted in the curly braces because it is a class defined in the model ts and we must to import it
@@ -9,7 +9,7 @@ import { Recipe } from '../recipe.model'
   styleUrls: ['./recipe-list.component.scss']
 })
 export class RecipeListComponent implements OnInit {
-
+  @Output() recipeWasSelected = new EventEmitter<Recipe>();
   recipes: Recipe[] = [
     new Recipe('Potato', 'Sweet potato', 'https://cdn.pixabay.com/photo/2016/11/06/23/28/yam-1804451_960_720.jpg'),
     new Recipe('Potato', 'Sweet potato', 'https://cdn.pixabay.com/photo/2016/11/06/23/28/yam-1804451_960_720.jpg') // here we call a constructor defined in the Recipe model
@@ -19,5 +19,9 @@ export class RecipeListComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  onRecipeSelected(recipe: Recipe) {
+    this.recipeWasSelected.emit(recipe);
+   }
 
 }
